@@ -2,10 +2,12 @@ package com.springboot.blogapprest.service.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.springboot.blogapprest.entity.Post;
+import com.springboot.blogapprest.exceptions.ResourceNotFoundException;
 import com.springboot.blogapprest.payload.PostDto;
 import com.springboot.blogapprest.repository.PostRepository;
 import com.springboot.blogapprest.service.PostService;
@@ -53,6 +55,14 @@ public class PostServiceImpl implements PostService {
 			postDtos.add(postDto);
 		}
 		return postDtos;
+	}
+
+
+	@Override
+	public PostDto getPostById(Long id) {
+		Post post=postRepository.findById(id).
+				orElseThrow(()->new ResourceNotFoundException("Post","id", id));
+		return maptToDto(post);
 	}
 
 }

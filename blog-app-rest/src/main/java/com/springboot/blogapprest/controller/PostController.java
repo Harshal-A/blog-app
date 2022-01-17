@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,11 @@ public class PostController {
 	@GetMapping
 	public List<PostDto> getAllPosts(){
 		return postService.getAllPosts();
+	}
+	
+	@GetMapping("/{postId}")
+	public ResponseEntity<PostDto> getPostById(@PathVariable("postId") Long postId){
+		return new ResponseEntity<PostDto>(postService.getPostById(postId), HttpStatus.OK);
 	}
 }
  
