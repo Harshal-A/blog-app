@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +41,12 @@ public class PostController {
 	@GetMapping("/{postId}")
 	public ResponseEntity<PostDto> getPostById(@PathVariable("postId") Long postId){
 		return new ResponseEntity<PostDto>(postService.getPostById(postId), HttpStatus.OK);
+	}
+	
+	@PutMapping("/{postId}")
+	public ResponseEntity<PostDto> updatePostById(@PathVariable("postId") Long postId
+			,@RequestBody PostDto postDto){
+		return new ResponseEntity<PostDto>(postService.updatePost(postId, postDto), HttpStatus.OK);
 	}
 }
  
