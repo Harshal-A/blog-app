@@ -2,6 +2,8 @@ package com.springboot.blogapprest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +35,7 @@ public class PostController {
 
 	
 	@PostMapping
-	public ResponseEntity<PostDto> create(@RequestBody PostDto postDto){
+	public ResponseEntity<PostDto> create(@Valid @RequestBody PostDto postDto){
 		return new ResponseEntity<PostDto>(postService.createPost(postDto), HttpStatus.CREATED);
 	}
 	
@@ -53,8 +55,8 @@ public class PostController {
 	}
 	
 	@PutMapping("/{postId}")
-	public ResponseEntity<PostDto> updatePostById(@PathVariable("postId") Long postId
-			,@RequestBody PostDto postDto){
+	public ResponseEntity<PostDto> updatePostById( @PathVariable("postId") Long postId
+			,@Valid @RequestBody PostDto postDto){
 		return new ResponseEntity<PostDto>(postService.updatePost(postId, postDto), HttpStatus.OK);
 	}
 	
