@@ -3,6 +3,7 @@ package com.springboot.blogapprest.service.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -21,29 +22,34 @@ public class CommentServiceImpl implements CommentService {
 	
 	private PostRepository postRepository;
 	
-	public CommentServiceImpl(Commentrepository commentrepository,PostRepository postRepository) {
+	private ModelMapper modelMapper;
+	
+	public CommentServiceImpl(Commentrepository commentrepository,PostRepository postRepository,ModelMapper modelMapper) {
 		this.commentrepository=commentrepository;
 		this.postRepository=postRepository;
+		this.modelMapper=modelMapper;
 	}
 	
 	
 	private CommentDto mapToDto(Comment comment) {
-		CommentDto commentDto=new CommentDto();
-		commentDto.setId(comment.getId());
-		commentDto.setName(comment.getName());
-		commentDto.setEmail(comment.getEmail());
-		commentDto.setBody(comment.getBody());
+//		CommentDto commentDto=new CommentDto();
+//		commentDto.setId(comment.getId());
+//		commentDto.setName(comment.getName());
+//		commentDto.setEmail(comment.getEmail());
+//		commentDto.setBody(comment.getBody());
 		
+		CommentDto commentDto=modelMapper.map(comment, CommentDto.class);
 		return commentDto;
 	}
 	
 	private Comment mapToEntity(CommentDto commentDto) {
-		Comment comment=new Comment();
-		comment.setId(commentDto.getId());
-		comment.setName(commentDto.getName());
-		comment.setEmail(commentDto.getEmail());
-		comment.setBody(commentDto.getBody());
+//		Comment comment=new Comment();
+//		comment.setId(commentDto.getId());
+//		comment.setName(commentDto.getName());
+//		comment.setEmail(commentDto.getEmail());
+//		comment.setBody(commentDto.getBody());
 		
+		Comment comment=modelMapper.map(commentDto,Comment.class);
 		return comment;
 	}
 	
